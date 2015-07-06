@@ -122,10 +122,10 @@ void Config::SetDefaults()
 	searchRadius = 30;
 	svmC = 100.0;
 	svmBudgetSize = 100;
-		
+	
 	features.clear();
   FeatureKernelPair fkp;
-	fkp.feature = kFeatureTypeHaar;
+  fkp.feature = kFeatureTypeHaar;
   fkp.kernel = kKernelTypeGaussian;
   fkp.params.push_back(0.1);
   features.push_back(fkp);
