@@ -30,8 +30,6 @@
 #include "Sample.h"
 #include "Rect.h"
 
-#include <opencv2/imgproc/imgproc.hpp>
-
 #include <iostream>
 #include <opencv2/imgproc.hpp>
 
