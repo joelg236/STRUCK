@@ -116,15 +116,20 @@ void Config::SetDefaults()
 	sequenceName = "";
 	resultsPath = "";
 	
-	frameWidth = 320;
-	frameHeight = 240;
+	frameWidth = 640;
+	frameHeight = 480;
 	
 	seed = 0;
 	searchRadius = 30;
-	svmC = 1.0;
-	svmBudgetSize = 0;
+	svmC = 100.0;
+	svmBudgetSize = 100;
 	
 	features.clear();
+  FeatureKernelPair fkp;
+  fkp.feature = kFeatureTypeHaar;
+  fkp.kernel = kKernelTypeGaussian;
+  fkp.params.push_back(0.1);
+  features.push_back(fkp);
 }
 
 std::string Config::FeatureName(FeatureType f)
