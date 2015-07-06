@@ -76,7 +76,7 @@ public:
 	inline double Eval(const Eigen::VectorXd& x1, const Eigen::VectorXd& x2) const
 	{
 		return x1.array().min(x2.array()).sum();
-	{
+	}
 	
 	inline double Eval(const Eigen::VectorXd& x) const
 	{
