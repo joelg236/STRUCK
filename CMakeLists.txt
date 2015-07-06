@@ -4,12 +4,12 @@ cmake_minimum_required(VERSION 2.6)
 
 find_package(OpenCV REQUIRED)
 
-set(CMAKE_BUILD_TYPE Release)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
+endif()
 
-INCLUDE_DIRECTORIES ( src/GraphUtils
-            /usr/local/include/eigen3
-            /usr/include/eigen3
-            ${OpenCV_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES ( src/GraphUtils ${OpenCV_INCLUDE_DIRS} /usr/include/eigen3/
+                                                            /usr/local/include/eigen3/)
 
 add_library(STRUCK STATIC
     src/struck/Config.cpp
