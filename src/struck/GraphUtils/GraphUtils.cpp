@@ -21,6 +21,7 @@
 #include "GraphUtils.h"
 
 #include <iostream>
+#include <opencv2/imgproc/imgproc_c.h>
 using namespace std;
 
 #ifndef _WIN32
@@ -350,6 +351,7 @@ IplImage* drawUCharGraph(const uchar *arraySrc, int nArrayLength, IplImage *imag
 void showFloatGraph(const char *name, const float *arraySrc, int nArrayLength, int delay_ms, IplImage *background)
 {
 #ifdef USE_HIGHGUI
+#if 0
 	// Draw the graph
 	IplImage *imageGraph = drawFloatGraph(arraySrc, nArrayLength, background);
 
@@ -361,6 +363,9 @@ void showFloatGraph(const char *name, const float *arraySrc, int nArrayLength, i
 	cvWaitKey( delay_ms );	// Wait longer to make sure the user has seen the graph
 
 	cvReleaseImage(&imageGraph);
+#else
+    assert(0);
+#endif
 #endif
 }
 
@@ -370,6 +375,7 @@ void showFloatGraph(const char *name, const float *arraySrc, int nArrayLength, i
 void showIntGraph(const char *name, const int *arraySrc, int nArrayLength, int delay_ms, IplImage *background)
 {
 #ifdef USE_HIGHGUI
+#if 0
 	// Draw the graph
 	IplImage *imageGraph = drawIntGraph(arraySrc, nArrayLength, background);
 
@@ -381,6 +387,9 @@ void showIntGraph(const char *name, const int *arraySrc, int nArrayLength, int d
 	cvWaitKey( delay_ms );	// Wait longer to make sure the user has seen the graph
 
 	cvReleaseImage(&imageGraph);
+#else
+    assert(0);
+#endif
 #endif
 }
 
@@ -390,6 +399,7 @@ void showIntGraph(const char *name, const int *arraySrc, int nArrayLength, int d
 void showUCharGraph(const char *name, const uchar *arraySrc, int nArrayLength, int delay_ms, IplImage *background)
 {
 #ifdef USE_HIGHGUI
+#if 0
 	// Draw the graph
 	IplImage *imageGraph = drawUCharGraph(arraySrc, nArrayLength, background);
 
@@ -401,6 +411,9 @@ void showUCharGraph(const char *name, const uchar *arraySrc, int nArrayLength, i
 	cvWaitKey( delay_ms );	// Wait longer to make sure the user has seen the graph
 
 	cvReleaseImage(&imageGraph);
+#else
+    assert(0);
+#endif
 #endif
 }
 
@@ -408,11 +421,15 @@ void showUCharGraph(const char *name, const uchar *arraySrc, int nArrayLength, i
 void showImage(const IplImage *img, int delay_ms, char *name)
 {
 #ifdef USE_HIGHGUI
+#if 0
 	if (!name) {
     strcpy(name, ((std::string)"Image").c_str());
   }
 	cvNamedWindow(name, CV_WINDOW_AUTOSIZE);
 	cvShowImage(name, img);
 	cvWaitKey(delay_ms);
+#else
+    assert(0);
+#endif
 #endif
 }

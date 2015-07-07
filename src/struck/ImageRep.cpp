@@ -64,7 +64,8 @@ ImageRep::ImageRep(const Mat& image, bool computeIntegral, bool computeIntegralH
 		assert(image.channels() == 1 || image.channels() == 3);
 		if (image.channels() == 3)
 		{
-			cvtColor(image, m_images[0], CV_RGB2GRAY);
+			//cvtColor(image, m_images[0], CV_RGB2GRAY);
+			cvtColor(image, m_images[0], COLOR_RGB2GRAY);
 		}
 		else if (image.channels() == 1)
 		{
