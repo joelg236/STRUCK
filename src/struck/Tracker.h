@@ -43,6 +43,7 @@ class ImageRep;
 class Tracker
 {
 public:
+  double bestScore;
 	Tracker(const Config& conf);
 	~Tracker();
 	

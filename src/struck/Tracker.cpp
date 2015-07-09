@@ -171,7 +171,7 @@ void Tracker::Track(const cv::Mat& frame)
 	vector<double> scores;
 	m_pLearner->Eval(sample, scores);
 	
-	double bestScore = -DBL_MAX;
+	bestScore = -DBL_MAX;
 	int bestInd = -1;
 	for (int i = 0; i < (int)keptRects.size(); ++i)
 	{		
