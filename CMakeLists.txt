@@ -2,7 +2,7 @@ project(STRUCK)
 
 cmake_minimum_required(VERSION 2.6)
 
-find_package(OpenCV REQUIRED)
+find_package(OpenCV REQUIRED highgui video videoio imgproc imgcodecs)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
