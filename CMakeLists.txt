@@ -7,6 +7,17 @@ include_directories(src/GraphUtils
   /usr/include/eigen3/
   /usr/local/include/eigen3/)
 
+
+set(STRUCK_INCLUDE "
+ ${CMAKE_CURRENT_SOURCE_DIR}/src;
+  /usr/include/eigen3;
+  /usr/local/include/eigen3")
+set(STRUCK_INCLUDE ${STRUCK_INCLUDE} PARENT_SCOPE)
+
+include_directories(${struck_path}/src)
+include_directories(/usr/include/eigen3
+                    /usr/local/include/eigen3)
+
 add_library(STRUCK STATIC
     src/struck/Config.cpp
     src/struck/Features.cpp
