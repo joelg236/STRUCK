@@ -228,7 +228,7 @@ int main(int argc, char* argv[]) {
 
                 doInitialise = false;
             } else if (!tracker.IsInitialised()) {
-                rectangle(result, initBB, CV_RGB(255, 255, 255));
+                rectangle(result, initBB, Scalar(255, 255, 255));
             }
         } else {
             char imgPath[256];
@@ -241,7 +241,7 @@ int main(int argc, char* argv[]) {
             }
 
             resize(frameOrig, frame, Size(conf.frameWidth, conf.frameHeight));
-            cvtColor(frame, result, CV_GRAY2RGB);
+            cvtColor(frame, result, COLOR_GRAY2RGB);
 
             if (frameInd == startFrame) {
                 tracker.Initialise(frame, initBB);
@@ -255,7 +255,7 @@ int main(int argc, char* argv[]) {
                 tracker.Debug();
             }
 
-            rectangle(result, tracker.GetBB(), CV_RGB(0, 255, 0));
+            rectangle(result, tracker.GetBB(), Scalar(0, 255, 0));
 
             if (outFile) {
                 const FloatRect& bb = tracker.GetBB();
