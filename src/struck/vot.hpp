@@ -1,9 +1,9 @@
-/* 
+/*
  *  Author : Tomas Vojir
  *  Date   : 2013-06-05
- *  Desc   : Simple class for parsing VOT inputs and providing 
+ *  Desc   : Simple class for parsing VOT inputs and providing
  *           interface for image loading and storing output.
- */ 
+ */
 
 #ifndef CPP_VOT_H
 #define CPP_VOT_H
@@ -13,59 +13,58 @@
 #include <iostream>
 #include "opencv2/opencv.hpp"
 
-class VOT
-{
+class VOT {
 public:
-    VOT(const std::string & region_file, const std::string & images, const std::string & ouput)
-    {
+    VOT(const std::string& region_file, const std::string& images, const std::string& ouput) {
         p_region_stream.open(region_file.c_str());
-        if (p_region_stream.is_open()){
+
+        if (p_region_stream.is_open()) {
             float x, y, w, h;
             char ch;
             p_region_stream >> x >> ch >> y >> ch >> w >> ch >> h;
             p_init_rectangle = cv::Rect(x, y, w, h);
-        }else{
+        } else {
             std::cerr << "Error loading initial region in file " << region_file << "!" << std::endl;
             p_init_rectangle = cv::Rect(0, 0, 0, 0);
         }
 
         p_images_stream.open(images.c_str());
+
         if (!p_images_stream.is_open())
-            std::cerr << "Error loading image file " << images << "!" << std::endl;
+        { std::cerr << "Error loading image file " << images << "!" << std::endl; }
 
         p_output_stream.open(ouput.c_str());
+
         if (!p_output_stream.is_open())
-            std::cerr << "Error opening output file " << ouput << "!" << std::endl;
+        { std::cerr << "Error opening output file " << ouput << "!" << std::endl; }
     }
 
-    ~VOT()
-    {
+    ~VOT() {
         p_region_stream.close();
         p_images_stream.close();
         p_output_stream.close();
     }
 
-    inline cv::Rect getInitRectangle() const 
+    inline cv::Rect getInitRectangle() const
     {   return p_init_rectangle;    }
 
-    inline void outputBoundingBox(const cv::Rect & bbox)
+    inline void outputBoundingBox(const cv::Rect& bbox)
     {   p_output_stream << bbox.x << ", " << bbox.y << ", " << bbox.width << ", " << bbox.height << std::endl;  }
 
-    inline int getNextImage(cv::Mat & img)
-    {
-		if (p_images_stream.eof() || !p_images_stream.is_open())
-            return -1;
+    inline int getNextImage(cv::Mat& img) {
+        if (p_images_stream.eof() || !p_images_stream.is_open())
+        { return -1; }
 
-		std::string line;
-		std::getline (p_images_stream, line);
-		img = cv::imread(line, CV_LOAD_IMAGE_COLOR);
+        std::string line;
+        std::getline (p_images_stream, line);
+        img = cv::imread(line, CV_LOAD_IMAGE_COLOR);
 
-		printf("Processing");
-		printf(line.c_str());
-		printf("\n");
-		
-		return 1;
-	}
+        printf("Processing");
+        printf(line.c_str());
+        printf("\n");
+
+        return 1;
+    }
 
     cv::Rect p_init_rectangle;
     std::ifstream p_region_stream;

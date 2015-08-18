@@ -2,21 +2,14 @@ project(STRUCK)
 cmake_minimum_required(VERSION 2.6)
 
 find_package(OpenCV REQUIRED highgui video videoio imgproc imgcodecs)
-include_directories(src/GraphUtils
-  ${OpenCV_INCLUDE_DIRS}
-  /usr/include/eigen3/
-  /usr/local/include/eigen3/)
 
-
-set(STRUCK_INCLUDE "
- ${CMAKE_CURRENT_SOURCE_DIR}/src;
+set(STRUCK_INCLUDE "${CMAKE_CURRENT_SOURCE_DIR}/src;
   /usr/include/eigen3;
   /usr/local/include/eigen3")
 set(STRUCK_INCLUDE ${STRUCK_INCLUDE} PARENT_SCOPE)
-
-include_directories(${struck_path}/src)
-include_directories(/usr/include/eigen3
-                    /usr/local/include/eigen3)
+include_directories(src/GraphUtils
+                    ${OpenCV_INCLUDE_DIRS}
+                    ${STRUCK_INCLUDE})
 
 add_library(STRUCK STATIC
     src/struck/Config.cpp
