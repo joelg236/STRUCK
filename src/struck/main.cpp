@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
 
-    Tracker tracker(conf);
+    StruckTracker tracker(conf);
 
     //Check if --challenge was passed as an argument
     bool challengeMode = false;

@@ -53,7 +53,7 @@ using namespace cv;
 using namespace std;
 using namespace Eigen;
 
-Tracker::Tracker(const Config& conf) :
+StruckTracker::StruckTracker(const Config& conf) :
     m_config(conf),
     m_initialised(false),
     m_pLearner(0),
@@ -62,7 +62,7 @@ Tracker::Tracker(const Config& conf) :
     Reset();
 }
 
-Tracker::~Tracker() {
+StruckTracker::~StruckTracker() {
     delete m_pLearner;
 
     for (int i = 0; i < (int)m_features.size(); ++i) {
@@ -71,7 +71,7 @@ Tracker::~Tracker() {
     }
 }
 
-void Tracker::Reset() {
+void StruckTracker::Reset() {
     m_initialised = false;
     m_debugImage.setTo(0);
 
@@ -141,7 +141,7 @@ void Tracker::Reset() {
 }
 
 
-void Tracker::Initialise(const cv::Mat& frame, FloatRect bb) {
+void StruckTracker::Initialise(const cv::Mat& frame, FloatRect bb) {
     m_bb = IntRect(bb);
     ImageRep image(frame, m_needsIntegralImage, m_needsIntegralHist);
 
@@ -152,7 +152,7 @@ void Tracker::Initialise(const cv::Mat& frame, FloatRect bb) {
     m_initialised = true;
 }
 
-void Tracker::Track(const cv::Mat& frame) {
+void StruckTracker::Track(const cv::Mat& frame) {
     assert(m_initialised);
 
     ImageRep image(frame, m_needsIntegralImage, m_needsIntegralHist);
@@ -194,7 +194,7 @@ void Tracker::Track(const cv::Mat& frame) {
     }
 }
 
-void Tracker::UpdateDebugImage(const vector<FloatRect>& samples, const FloatRect& centre, const vector<double>& scores) {
+void StruckTracker::UpdateDebugImage(const vector<FloatRect>& samples, const FloatRect& centre, const vector<double>& scores) {
     double mn = VectorXd::Map(&scores[0], scores.size()).minCoeff();
     double mx = VectorXd::Map(&scores[0], scores.size()).maxCoeff();
     m_debugImage.setTo(0);
@@ -206,12 +206,12 @@ void Tracker::UpdateDebugImage(const vector<FloatRect>& samples, const FloatRect
     }
 }
 
-void Tracker::Debug() {
+void StruckTracker::Debug() {
     imshow("tracker", m_debugImage);
     m_pLearner->Debug();
 }
 
-void Tracker::UpdateLearner(const ImageRep& image) {
+void StruckTracker::UpdateLearner(const ImageRep& image) {
     // note these return the centre sample at index 0
     vector<FloatRect> rects = Sampler::RadialSamples(m_bb, 2 * m_config.searchRadius, 5, 16);
     //vector<FloatRect> rects = Sampler::PixelSamples(m_bb, 2*m_config.searchRadius, true);
