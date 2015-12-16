@@ -40,11 +40,11 @@ class Kernel;
 class LaRank;
 class ImageRep;
 
-class Tracker {
+class StruckTracker {
 public:
     double bestScore;
-    Tracker(const Config& conf);
-    ~Tracker();
+    StruckTracker(const Config& conf);
+    ~StruckTracker();
 
     void Initialise(const cv::Mat& frame, FloatRect bb);
     void Reset();

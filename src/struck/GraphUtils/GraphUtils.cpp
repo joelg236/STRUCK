@@ -10,6 +10,8 @@
 
 // OpenCV
 #include <opencv2/core.hpp>
+#include <opencv2/highgui/highgui_c.h>
+#include <cv.h>
 #ifdef USE_HIGHGUI
 #include <opencv2/highgui.hpp>
 #endif
@@ -22,19 +24,18 @@ typedef unsigned char UCHAR;
 
 #include <iostream>
 using namespace std;
+using namespace cv;
 
 #ifndef _WIN32
 #define sprintf_s(buffer, buffer_size, stringbuffer, ...) (sprintf(buffer, stringbuffer, __VA_ARGS__))
 #endif
 
-
-
 //------------------------------------------------------------------------------
 // Graphing functions
 //------------------------------------------------------------------------------
-const CvScalar BLACK = CV_RGB(0, 0, 0);
-const CvScalar WHITE = CV_RGB(255, 255, 255);
-const CvScalar GREY = CV_RGB(150, 150, 150);
+const CvScalar BLACK = Scalar(0, 0, 0);
+const CvScalar WHITE = Scalar(255, 255, 255);
+const CvScalar GREY = Scalar(150, 150, 150);
 
 int countGraph = 0; // Used by 'getGraphColor()'
 CvScalar customGraphColor;
@@ -51,35 +52,35 @@ CvScalar getGraphColor(void) {
 
     switch (countGraph) {
         case 1:
-            return CV_RGB(60, 60, 255); // light-blue
+            return Scalar(60, 60, 255); // light-blue
 
         case 2:
-            return CV_RGB(60, 255, 60); // light-green
+            return Scalar(60, 255, 60); // light-green
 
         case 3:
-            return CV_RGB(255, 60, 40); // light-red
+            return Scalar(255, 60, 40); // light-red
 
         case 4:
-            return CV_RGB(0, 210, 210); // blue-green
+            return Scalar(0, 210, 210); // blue-green
 
         case 5:
-            return CV_RGB(180, 210, 0); // red-green
+            return Scalar(180, 210, 0); // red-green
 
         case 6:
-            return CV_RGB(210, 0, 180); // red-blue
+            return Scalar(210, 0, 180); // red-blue
 
         case 7:
-            return CV_RGB(0, 0, 185);   // dark-blue
+            return Scalar(0, 0, 185);   // dark-blue
 
         case 8:
-            return CV_RGB(0, 185, 0);   // dark-green
+            return Scalar(0, 185, 0);   // dark-green
 
         case 9:
-            return CV_RGB(185, 0, 0);   // dark-red
+            return Scalar(185, 0, 0);   // dark-red
 
         default:
             countGraph = 0; // start rotating through colors again.
-            return CV_RGB(200, 200, 200); // grey
+            return Scalar(200, 200, 200); // grey
     }
 }
 // Call 'setGraphColor()' to reset the colors that will be used for graphs.
@@ -89,7 +90,7 @@ void setGraphColor(int index) {
 }
 // Specify the exact color that the next graph should be drawn as.
 void setCustomGraphColor(int R, int B, int G) {
-    customGraphColor = CV_RGB(R, G, B);
+    customGraphColor = Scalar(R, G, B);
     usingCustomGraphColor = 1;  // show that it will be used.
 }
 
@@ -187,7 +188,7 @@ IplImage* drawFloatGraph(const float* arraySrc, int nArrayLength, IplImage* imag
     // Write the graph label, if desired
     if (graphLabel != NULL && strlen(graphLabel) > 0) {
         //cvInitFont(&font,CV_FONT_HERSHEY_PLAIN, 0.5,0.7, 0,1,CV_AA);
-        cvPutText(imageGraph, graphLabel, cvPoint(30, 10), &font, CV_RGB(0, 0, 0)); // black text
+        cvPutText(imageGraph, graphLabel, cvPoint(30, 10), &font, Scalar(0, 0, 0)); // black text
     }
 
     return imageGraph;
@@ -287,7 +288,7 @@ IplImage* drawIntGraph(const int* arraySrc, int nArrayLength, IplImage* imageDst
     // Write the graph label, if desired
     if (graphLabel != NULL && strlen(graphLabel) > 0) {
         //cvInitFont(&font,CV_FONT_HERSHEY_PLAIN, 0.5,0.7, 0,1,CV_AA);
-        cvPutText(imageGraph, graphLabel, cvPoint(30, 10), &font, CV_RGB(0, 0, 0)); // black text
+        cvPutText(imageGraph, graphLabel, cvPoint(30, 10), &font, Scalar(0, 0, 0)); // black text
     }
 
     return imageGraph;
@@ -387,7 +388,7 @@ IplImage* drawUCharGraph(const uchar* arraySrc, int nArrayLength, IplImage* imag
     // Write the graph label, if desired
     if (graphLabel != NULL && strlen(graphLabel) > 0) {
         //cvInitFont(&font,CV_FONT_HERSHEY_PLAIN, 0.5,0.7, 0,1,CV_AA);
-        cvPutText(imageGraph, graphLabel, cvPoint(30, 10), &font, CV_RGB(0, 0, 0)); // black text
+        cvPutText(imageGraph, graphLabel, cvPoint(30, 10), &font, Scalar(0, 0, 0)); // black text
     }
 
     return imageGraph;

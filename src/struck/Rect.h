@@ -32,16 +32,16 @@
 #include <algorithm>
 
 template <typename T>
-class Rect {
+class StruckRect {
 public:
-    Rect() :
+    StruckRect() :
         m_xMin(0),
         m_yMin(0),
         m_width(0),
         m_height(0) {
     }
 
-    Rect(T xMin, T yMin, T width, T height) :
+    StruckRect(T xMin, T yMin, T width, T height) :
         m_xMin(xMin),
         m_yMin(yMin),
         m_width(width),
@@ -49,7 +49,7 @@ public:
     }
 
     template <typename T2>
-    Rect(const Rect<T2>& rOther) :
+    StruckRect(const StruckRect<T2>& rOther) :
         m_xMin((T)rOther.XMin()),
         m_yMin((T)rOther.YMin()),
         m_width((T)rOther.Width()),
@@ -81,13 +81,13 @@ public:
     inline T Area() const { return m_width * m_height; }
 
     template <typename T2>
-    friend std::ostream& operator <<(std::ostream& rOS, const Rect<T2>& rRect);
+    friend std::ostream& operator <<(std::ostream& rOS, const StruckRect<T2>& rRect);
 
     template <typename T2>
-    float Overlap(const Rect<T2>& rOther) const;
+    float Overlap(const StruckRect<T2>& rOther) const;
 
     template <typename T2>
-    bool IsInside(const Rect<T2>& rOther) const;
+    bool IsInside(const StruckRect<T2>& rOther) const;
 
 private:
     T m_xMin;
@@ -96,18 +96,18 @@ private:
     T m_height;
 };
 
-typedef Rect<int> IntRect;
-typedef Rect<float> FloatRect;
+typedef StruckRect<int> IntRect;
+typedef StruckRect<float> FloatRect;
 
 template <typename T>
-std::ostream& operator <<(std::ostream& rOS, const Rect<T>& rRect) {
+std::ostream& operator <<(std::ostream& rOS, const StruckRect<T>& rRect) {
     rOS << "[origin: (" << rRect.m_xMin << ", " << rRect.m_yMin << ") size: (" << rRect.m_width << ", " << rRect.m_height << ")]";
     return rOS;
 }
 
 template <typename T>
 template <typename T2>
-float Rect<T>::Overlap(const Rect<T2>& rOther) const {
+float StruckRect<T>::Overlap(const StruckRect<T2>& rOther) const {
     float x0 = std::max((float)XMin(), (float)rOther.XMin());
     float x1 = std::min((float)XMax(), (float)rOther.XMax());
     float y0 = std::max((float)YMin(), (float)rOther.YMin());
@@ -121,7 +121,7 @@ float Rect<T>::Overlap(const Rect<T2>& rOther) const {
 
 template <typename T>
 template <typename T2>
-bool Rect<T>::IsInside(const Rect<T2>& rOther) const {
+bool StruckRect<T>::IsInside(const StruckRect<T2>& rOther) const {
     return (XMin() >= rOther.XMin()) && (YMin() >= rOther.YMin()) && (XMax() <= rOther.XMax()) && (YMax() <= rOther.YMax());
 }
 
